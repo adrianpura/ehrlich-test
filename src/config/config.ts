@@ -1,3 +1,4 @@
+import { Images } from 'src/entities/images.entity';
 import { Subscriber } from 'src/entities/subscriber.entity';
 import { Users } from 'src/entities/users.entity';
 
@@ -11,7 +12,7 @@ export const config = () => ({
     database: process.env.DB_NAME,
     timezone: '+08:00',
     // entities: ['dist/src/entities/**/*{.js,.ts}'],
-    entities: [Subscriber, Users],
+    entities: [Subscriber, Users, Images],
     migrations: ['dist/src/migrations/*{.js,.ts}'],
     cli: {
       migrationsDir: 'src/migrations',

@@ -21,9 +21,11 @@ export class CloudinaryService {
       //     resolve(image);
       //   },
       // );
-
+      const uniqueFilename = new Date().toISOString();
       const upload = v2.uploader
         .upload(uri, {
+          public_id: `nestjs/${uniqueFilename}`,
+          tags: 'nestjs',
           responsive_breakpoints: { create_derived: true, bytes_step: 20000, min_width: 200, max_width: 1000 },
         })
         .then((result) => {
