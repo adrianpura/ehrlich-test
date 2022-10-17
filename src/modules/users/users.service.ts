@@ -74,7 +74,7 @@ export class UsersService {
     };
   }
 
-  async findOne(username: string): Promise<Users | undefined> {
-    return this.usersRepository.findOne(username);
+  async findOne(email: string): Promise<Users | undefined> {
+    return this.usersRepository.findOne(email);
   }
 }

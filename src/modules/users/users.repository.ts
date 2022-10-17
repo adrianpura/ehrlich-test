@@ -78,10 +78,10 @@ export class UsersRepository extends Repository<Users> {
     return await paginate<Users>(query, options);
   }
 
-  async findOne(username): Promise<Users> {
+  async findOne(email): Promise<Users> {
     const query = this.createQueryBuilder('users');
 
-    query.andWhere('users.username = :username', { username });
+    query.andWhere('users.email = :email', { email });
 
     return await query.getOne();
   }
