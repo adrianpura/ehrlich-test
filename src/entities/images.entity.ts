@@ -16,10 +16,10 @@ export class Images extends BaseEntity {
   uri: string;
 
   @ApiProperty()
-  @CreateDateColumn()
+  @CreateDateColumn({ select: false })
   created_at: Date;
 
   @ApiProperty()
-  @CreateDateColumn()
+  @CreateDateColumn({ select: false })
   updated_at: Date;
 }

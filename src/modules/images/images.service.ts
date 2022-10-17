@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
 import { CloudinaryService } from '../cloudinary/cloudinary.service';
 import { GetImagesFilterDto } from './dto/get-image.dto';
 import { CreateImageDto, UploadImageDto } from './dto/upload-image.dto';
@@ -10,6 +10,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { SaveImagesDto } from './dto/save-image.dto';
 import { ImagesRepository } from './images.repository';
 import { InjectRepository } from '@nestjs/typeorm';
+import { UpdateImageDto } from './dto/update-image.dto';
 @Injectable()
 export class ImagesService {
   constructor(
@@ -53,28 +54,52 @@ export class ImagesService {
       returnObj.data.push(obj);
     }
 
-    images.photos.forEach((element) => {
-      // console.log('element.url', element.src.medium);
-      // console.log('typeof element.url', typeof element.url);
-      //save image to db
-      // const image = this.saveImage(1, element.url);
-      // console.log('image: ', image);
-      // upload to cloundinary
-      // this.cloudinary.uploadImage(element.src.medium).catch((e) => {
-      //   console.log('error', e);
-      //   throw new BadRequestException('Invalid file type.');
-      // });
-    });
-
     return returnObj;
   }
 
-  async saveImage(hits: number, uri: string): Promise<any> {
+  async saveImage(uploadImageDto: UploadImageDto): Promise<any> {
+    const { hits, uri, owner } = uploadImageDto;
     const data = await this.imagesRepository.saveImage(hits, uri);
+    return data;
+  }
+
+  async findByID(id: number): Promise<any> {
+    const result = await this.imagesRepository.findOne(id);
+
+    if (!result) {
+      throw new NotFoundException(`Image with ID ${id} not found`);
+    }
+    return result;
+  }
+
+  async updateImage(updateImageDto: UpdateImageDto, id: number): Promise<any> {
+    const { hits, uri } = updateImageDto;
+    const image = await this.imagesRepository.findOne(id);
+
+    if (!image) {
+      throw new NotFoundException(`Image with ID ${id} not found`);
+    }
+
+    const data = await this.imagesRepository.updateImage(image, updateImageDto);
+
     return {
-      statusCode: 201,
-      message: 'image saved',
+      statusCode: 200,
+      message: 'image updated',
       data: data,
+    };
+  }
+
+  async deleteImage(id: number): Promise<any> {
+    const result = await this.imagesRepository.delete(id);
+
+    if (result.affected === 0) {
+      throw new NotFoundException(`Image with ID ${id} not found`);
+    }
+
+    return {
+      statusCode: 200,
+      message: 'Image deleted',
+      data: [],
     };
   }
 }

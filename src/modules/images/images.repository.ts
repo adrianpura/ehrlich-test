@@ -2,6 +2,7 @@ import { Images } from 'src/entities/images.entity';
 import { ConflictException, InternalServerErrorException } from '@nestjs/common';
 import { EntityRepository, Repository } from 'typeorm';
 import { SaveImagesDto } from './dto/save-image.dto';
+import { UpdateImageDto } from './dto/update-image.dto';
 
 @EntityRepository(Images)
 export class ImagesRepository extends Repository<Images> {
@@ -19,6 +20,26 @@ export class ImagesRepository extends Repository<Images> {
         throw new InternalServerErrorException();
       }
     }
+    return image;
+  }
+
+  async updateImage(image: Images, updateImageDto: UpdateImageDto): Promise<Images> {
+    const { hits, uri } = updateImageDto;
+
+    if (hits) {
+      image.hits = hits;
+    }
+    if (uri) {
+      image.uri = uri;
+    }
+
+    try {
+      await image.save();
+    } catch (e) {
+      console.log(e.code);
+      throw new InternalServerErrorException();
+    }
+
     return image;
   }
 }

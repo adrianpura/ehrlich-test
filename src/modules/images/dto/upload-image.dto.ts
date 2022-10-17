@@ -7,7 +7,11 @@ export class UploadImageDto {
   @IsNotEmpty()
   uri: string;
 
-  @ApiProperty({ required: true })
+  @IsOptional()
+  @IsNotEmpty()
+  hits: number;
+
+  @ApiProperty()
   @IsNotEmpty()
   @IsOptional()
   owner: string;

@@ -12,6 +12,8 @@ import {
   UseGuards,
   Request,
   ValidationPipe,
+  ParseIntPipe,
+  UsePipes,
 } from '@nestjs/common';
 import { ImagesService } from './images.service';
 import { CreateImageDto, UploadImageDto } from './dto/upload-image.dto';
@@ -22,6 +24,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { GetImagesFilterDto } from './dto/get-image.dto';
 import { Pagination } from 'nestjs-typeorm-paginate';
 import { Images } from 'src/entities/images.entity';
+import { UpdateImageDto } from './dto/update-image.dto';
 @Controller('images')
 export class ImagesController {
   constructor(private readonly imagesService: ImagesService) {}
@@ -30,8 +33,8 @@ export class ImagesController {
   @UseGuards(JwtAuthGuard)
   @Post('upload')
   uploadFile(@Body() uploadImageDto: UploadImageDto, @Request() req) {
-    console.log('req: ', req.user);
-    return this.imagesService.uploadImageToCloudinary(uploadImageDto);
+    return this.imagesService.saveImage(uploadImageDto);
+    // return this.imagesService.uploadImageToCloudinary(uploadImageDto);
   }
 
   @Get()
@@ -40,5 +43,27 @@ export class ImagesController {
   findImages(@Query(ValidationPipe) filterDto: GetImagesFilterDto, @Query('limit') limit = 5) {
     limit = limit > 10 ? 10 : limit;
     return this.imagesService.findImages(limit);
+  }
+
+  @Get(':id')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  findImagesById(@Param('id', ParseIntPipe) id: number) {
+    return this.imagesService.findByID(id);
+  }
+
+  @Patch(':id')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @UsePipes(ValidationPipe)
+  updateImage(@Body() updateImageDto: UpdateImageDto, @Param('id', ParseIntPipe) id: number): Promise<any> {
+    return this.imagesService.updateImage(updateImageDto, id);
+  }
+
+  @Delete('/:id')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  deleteUser(@Param('id', ParseIntPipe) id: number): Promise<any> {
+    return this.imagesService.deleteImage(id);
   }
 }
