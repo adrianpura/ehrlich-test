@@ -1,9 +1,7 @@
-import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
-import { AxiosResponse } from 'axios';
-import { map, tap, catchError } from 'rxjs/operators';
-import { Observable } from 'rxjs/internal/Observable';
-import { CloudinaryService } from '../cloudinary/cloudinary.service';
+
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable()
 export class PexelsService {

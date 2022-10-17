@@ -1,7 +1,6 @@
 import { Images } from 'src/entities/images.entity';
 import { ConflictException, InternalServerErrorException } from '@nestjs/common';
 import { EntityRepository, Repository } from 'typeorm';
-import { SaveImagesDto } from './dto/save-image.dto';
 import { UpdateImageDto } from './dto/update-image.dto';
 
 @EntityRepository(Images)

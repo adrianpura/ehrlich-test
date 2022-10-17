@@ -7,8 +7,6 @@ import {
   Query,
   Param,
   Delete,
-  UseInterceptors,
-  UploadedFile,
   UseGuards,
   Request,
   ValidationPipe,
@@ -16,15 +14,12 @@ import {
   UsePipes,
 } from '@nestjs/common';
 import { ImagesService } from './images.service';
-import { CreateImageDto, UploadImageDto } from './dto/upload-image.dto';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiBearerAuth, ApiBody, ApiCreatedResponse, ApiParam, ApiTags } from '@nestjs/swagger';
-import { LocalAuthGuard } from '../auth/local-auth.guard';
+import { UploadImageDto } from './dto/upload-image.dto';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { GetImagesFilterDto } from './dto/get-image.dto';
-import { Pagination } from 'nestjs-typeorm-paginate';
-import { Images } from 'src/entities/images.entity';
 import { UpdateImageDto } from './dto/update-image.dto';
+@ApiTags('images')
 @Controller('images')
 export class ImagesController {
   constructor(private readonly imagesService: ImagesService) {}

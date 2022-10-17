@@ -1,13 +1,9 @@
 import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
 import { CloudinaryService } from '../cloudinary/cloudinary.service';
-import { GetImagesFilterDto } from './dto/get-image.dto';
-import { CreateImageDto, UploadImageDto } from './dto/upload-image.dto';
-import { IPaginationOptions, Pagination } from 'nestjs-typeorm-paginate';
-import { Images } from 'src/entities/images.entity';
+
+import { UploadImageDto } from './dto/upload-image.dto';
 import { PexelsService } from '../pexels/pexels.service';
-import { AxiosResponse } from 'axios';
-import { Observable } from 'rxjs/internal/Observable';
-import { SaveImagesDto } from './dto/save-image.dto';
+
 import { ImagesRepository } from './images.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UpdateImageDto } from './dto/update-image.dto';

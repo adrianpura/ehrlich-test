@@ -7,19 +7,17 @@ export class Images extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ApiProperty()
+  @ApiProperty({ type: Number, description: 'hits' })
   @Column()
   hits: number;
 
-  @ApiProperty()
+  @ApiProperty({ type: String, description: 'uri' })
   @Column({ type: 'varchar', nullable: false })
   uri: string;
 
-  @ApiProperty()
-  @CreateDateColumn({ select: false })
+  @CreateDateColumn({ type: 'datetime', select: false })
   created_at: Date;
 
-  @ApiProperty()
-  @CreateDateColumn({ select: false })
+  @CreateDateColumn({ type: 'datetime', select: false })
   updated_at: Date;
 }

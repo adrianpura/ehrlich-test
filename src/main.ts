@@ -22,12 +22,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   app.use(helmet());
-  app.enableCors({
-    origin: ['localhost', 'localhost:3000'],
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    allowedHeaders: 'Content-Type, Accept, Authorization',
-    credentials: false,
-  });
+  app.enableCors();
   app.useGlobalPipes(
     /**
      * Reference: https://docs.nestjs.com/techniques/validation#auto-validation

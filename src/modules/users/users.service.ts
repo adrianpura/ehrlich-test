@@ -6,7 +6,6 @@ import { GetUsersFilterDto } from './dto/get-users-filter.dto';
 import { UsersRepository } from './users.repository';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-const aes256 = require('aes256');
 
 @Injectable()
 export class UsersService {
