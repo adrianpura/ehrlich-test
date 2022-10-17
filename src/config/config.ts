@@ -1,4 +1,5 @@
 import { Subscriber } from 'src/entities/subscriber.entity';
+import { Users } from 'src/entities/users.entity';
 
 export const config = () => ({
   database: {
@@ -8,7 +9,13 @@ export const config = () => ({
     username: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
-    entities: [Subscriber],
+    timezone: '+08:00',
+    // entities: ['dist/src/entities/**/*{.js,.ts}'],
+    entities: [Subscriber, Users],
+    migrations: ['dist/src/migrations/*{.js,.ts}'],
+    cli: {
+      migrationsDir: 'src/migrations',
+    },
     keepConnectionAlive: true,
     synchronize: false,
     logging: 'all',

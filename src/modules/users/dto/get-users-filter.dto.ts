@@ -1,10 +1,6 @@
 import { IsNotEmpty, IsOptional, IsIn } from 'class-validator';
 
-export class GetSubscribersFilterDo {
-  @IsOptional()
-  @IsNotEmpty()
-  gender: string;
-
+export class GetUsersFilterDto {
   @IsOptional()
   @IsNotEmpty()
   limit: number;
