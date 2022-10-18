@@ -12,10 +12,11 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export class UsersRepository extends Repository<Users> {
   async createUser(createUserDto: CreateUserDto): Promise<Users> {
     const cipher = aes256.createCipher(process.env.APP_KEY);
-    const { email, password } = createUserDto;
+    const { email, password, role } = createUserDto;
 
     const user = new Users();
     user.email = email;
+    user.roles = role;
 
     user.password = cipher.encrypt(password);
 

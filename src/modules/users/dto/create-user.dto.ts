@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, IsString, Matches, MinLength, Validate } from 'class-validator';
+import { Role } from '../role.enum';
 import { IsEmailNotEmailCom } from '../validator/isEmailNotEmailCom';
 
 export class CreateUserDto {
@@ -22,4 +23,8 @@ export class CreateUserDto {
       'Password must contains : at least one uppercase character, at least one lowercase character, atleast one digit, at least one special character',
   })
   password: string;
+
+  @ApiProperty({ required: true })
+  @IsNotEmpty()
+  role: Role[];
 }

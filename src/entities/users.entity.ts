@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Role } from 'src/modules/users/role.enum';
 import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'users' })
@@ -12,8 +13,12 @@ export class Users extends BaseEntity {
   email: string;
 
   @ApiProperty({ type: String, description: 'Password' })
-  @Column({ type: 'varchar', nullable: false, select: false })
+  @Column({ type: 'varchar', nullable: false })
   password: string;
+
+  @ApiProperty()
+  @Column({ type: 'varchar', select: false })
+  roles: Role[];
 
   @CreateDateColumn({ type: 'datetime', select: false })
   created_at?: Date;

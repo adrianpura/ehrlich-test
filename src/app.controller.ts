@@ -5,6 +5,10 @@ import { ApiBody, ApiOkResponse, ApiUnauthorizedResponse, ApiTags } from '@nestj
 
 import { LoginUserDto } from './modules/users/dto/login.dto';
 import { LocalAuthGuard } from './modules/auth/local-auth.guard';
+import { HasRoles } from './modules/auth/decorators/has-roles.decorator';
+import { Role } from './modules/users/role.enum';
+import { RolesGuard } from './modules/auth/guards/roles.guard';
+import { JwtAuthGuard } from './modules/auth/jwt-auth.guard';
 @ApiTags('Login')
 @Controller()
 export class AppController {
@@ -17,5 +21,19 @@ export class AppController {
   @Post('auth/login')
   async login(@Request() req) {
     return this.authService.login(req.user);
+  }
+
+  @HasRoles(Role.Admin)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Get('admin')
+  onlyAdmin(@Request() req) {
+    return req.user;
+  }
+
+  @HasRoles(Role.User)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Get('user')
+  onlyUser(@Request() req) {
+    return req.user;
   }
 }
