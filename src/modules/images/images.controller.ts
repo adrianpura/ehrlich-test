@@ -16,9 +16,9 @@ import {
 import { ImagesService } from './images.service';
 import { UploadImageDto } from './dto/upload-image.dto';
 import { ApiBearerAuth, ApiTags, ApiBody } from '@nestjs/swagger';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { GetImagesFilterDto } from './dto/get-image.dto';
 import { UpdateImageDto } from './dto/update-image.dto';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 @ApiTags('images')
 @Controller('images')
 export class ImagesController {

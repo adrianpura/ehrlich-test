@@ -4,11 +4,11 @@ import { AuthService } from './modules/auth/auth.service';
 import { ApiBody, ApiOkResponse, ApiUnauthorizedResponse, ApiTags } from '@nestjs/swagger';
 
 import { LoginUserDto } from './modules/users/dto/login.dto';
-import { LocalAuthGuard } from './modules/auth/local-auth.guard';
 import { HasRoles } from './modules/auth/decorators/has-roles.decorator';
 import { Role } from './modules/users/role.enum';
 import { RolesGuard } from './modules/auth/guards/roles.guard';
-import { JwtAuthGuard } from './modules/auth/jwt-auth.guard';
+import { LocalAuthGuard } from './modules/auth/guards/local-auth.guard';
+import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
 @ApiTags('Login')
 @Controller()
 export class AppController {
