@@ -7,10 +7,12 @@ export class UploadImageDto {
   @IsNotEmpty()
   uri: string;
 
+  @ApiProperty()
   @IsOptional()
   @IsNotEmpty()
   hits: number;
 
+  @ApiProperty()
   @ApiProperty()
   @IsNotEmpty()
   @IsOptional()

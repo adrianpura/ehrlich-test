@@ -13,6 +13,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api/v1');
 
   const config = new DocumentBuilder()
+    .addBearerAuth()
     .setTitle('Image API')
     .setDescription('24 Hour NestJS API Challenge / Project')
     .setVersion('1.0')

@@ -28,11 +28,8 @@ export class ImagesService {
       limit: limit,
       data: [],
     };
-    // console.log('returnObj: ', returnObj);
 
     for (const photo of images.photos) {
-      // console.log('photo: ', photo.src.medium);
-
       //  save image to db
       const image = await this.imagesRepository.saveImage(1, photo.src.medium);
 

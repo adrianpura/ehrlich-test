@@ -17,7 +17,7 @@ export class Users extends BaseEntity {
   password: string;
 
   @ApiProperty()
-  @Column({ type: 'varchar', select: false })
+  @Column({ type: 'varchar' })
   roles: Role[];
 
   @CreateDateColumn({ type: 'datetime', select: false })

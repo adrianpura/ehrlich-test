@@ -10,7 +10,6 @@ export class AuthService {
     const user = await this.usersService.findOne(email);
 
     const password = cipher.decrypt(user.password.toString());
-    console.log(password, pass);
 
     if (user && password === pass) {
       const { ...result } = user;
